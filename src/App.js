@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import { CONST } from "./static";
+import NewActivity from "./NewActivity";
+import ActiveList from "./ActiveList";
 import './App.css';
+import {useState} from "react";
 
 function App() {
+  const [activeList, setActiveList] = useState([]);
+
+  const addActivity = (activity) => {
+    setActiveList([...activeList, {text: activity, checked: false}]);
+  }
+
+  const checked = (index) => {
+    const newActiveList = [...activeList];
+    newActiveList[index].checked = !newActiveList[index].checked;
+    setActiveList(newActiveList);
+  }
+
+  const deleteActivity = (index) => {
+    const newActiveList = [...activeList];
+    newActiveList.splice(index, 1);
+    setActiveList(newActiveList);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>{CONST.TODO_LIST}</h1>
+        <NewActivity setActiveList={(active) => addActivity(active)}/>
+        <ActiveList
+            activeList={activeList}
+            checked={(index) => checked(index)}
+            deleteActivity={(index) => deleteActivity(index)}
+        />
     </div>
   );
 }
