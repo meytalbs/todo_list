@@ -10,7 +10,7 @@ function NewActivity (props) {
     return (
         <div>
             <input type="text" placeholder="Add new activity" onChange={(e) => onChange(e)}/>
-            <button onClick={ (e) => props.setActiveList(activeText) }>Add</button>
+            <button className={"button"} onClick={ (e) => props.setActiveList(activeText) }>Add</button>
         </div>
     );
 }
